@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const data = ["jerome", "bryan", "virgo"];
+const data = ["jerome", "bryan", "virgo", "gege"];
 app.get("/api/tryserver", (req, res) => {
   res.json({ message: data });
 });
