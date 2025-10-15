@@ -6,7 +6,7 @@ async function getProducts(req, res) {
     res.json(products);
   } catch (err) {
     console.error("Error fetching users:", err);
-    res.status(500).json({ error: "Error fetching users" });
+    res.status(500).json({ error: "Error fetching all products" });
   }
 }
 
@@ -16,7 +16,7 @@ async function getProductWithLimit(req, res) {
     res.json(products);
   } catch (err) {
     console.error("Error fetching users:", err);
-    res.status(500).json({ error: "Error fetching users" });
+    res.status(500).json({ error: "Error fetching limit products" });
   }
 }
 
