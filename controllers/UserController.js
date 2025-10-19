@@ -10,26 +10,32 @@ async function getUsers(req, res) {
   }
 }
 
-async function checkCreds(){
+async function checkCreds(req, res) {
   try {
     const { username, password } = req.body;
 
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ username:username });
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, message: "Invalid password" });
+    if (password !== user.password) {
+      return res.status(401).json({ success: false, message: "Invalid Credentials" });
     }
-
-    res.json("Log in Successful");
+    
+    res.json({
+      success: true,
+      message: "Log in Successful",
+      username: user.username,
+      userId: user._id,
+    });
   } catch (err) {
     console.error("Error checking credentials:", err);
     res.status(500).json({ error: "Server error" });
   }
 }
+
+
 
 module.exports = {
   getUsers,
