@@ -6,6 +6,7 @@ const productController = require('../controllers/ProductController')
 const cartController = require('../controllers/CartController')
 
 router.get("/getUsers", userController.getUsers);
+router.post("/checkCreds", userController.checkCreds)
 
 router.get("/getProducts", productController.getProducts)
 router.get("/getProductWithLimit", productController.getProductWithLimit)
