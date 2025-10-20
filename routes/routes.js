@@ -12,5 +12,7 @@ router.get("/getProducts", productController.getProducts)
 router.get("/getProductWithLimit", productController.getProductWithLimit)
 
 router.get("/getCarts", cartController.getCarts)
+router.post("/addToCart", cartController.addToCart)
+router.get("/fetchUserCart", cartController.fetchUserCart)
 
 module.exports = router;  
