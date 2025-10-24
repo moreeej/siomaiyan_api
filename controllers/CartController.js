@@ -1,3 +1,4 @@
+const { mongoose } = require('mongoose');
 const CartModel = require('../models/AddToCart')
 
 async function getCarts(req, res){
@@ -27,7 +28,6 @@ async function addToCart(req, res) {
       return res.status(200).json({ message: "Product quantity updated", cartItem: existingItem });
     }
 
-    // Create a new cart item
     const newCartItem = new CartModel({
       user_id,
       username,
@@ -64,10 +64,41 @@ async function fetchUserCart(req, res) {
   }
 }
 
+async function checkoutItems(req, res) {
+  try {
+    const { product_ids } = req.body; 
+    console.log("Product IDs:", product_ids);
+
+    if (!Array.isArray(product_ids) || product_ids.length === 0) {
+      return res.status(400).json({ error: "Missing user_id or product_ids" });
+    }
+
+    const deletedResult = await CartModel.deleteMany({
+      _id: product_ids
+    });
+
+
+    if (deletedResult.deletedCount === 0) {
+      return res.status(404).json({ message: "No matching items found in cart" });
+    }
+
+    res.status(200).json({
+      message: "Selected items checked out and removed from cart",
+      deletedCount: deletedResult.deletedCount,
+    });
+  } catch (err) {
+    console.error("Error during checkout:", err);
+    res.status(500).json({ error: "Error during checkout" });
+  }
+}
+
+
+
 
 
 module.exports = {
     getCarts,
     addToCart,
-    fetchUserCart
+    fetchUserCart,
+    checkoutItems
 }

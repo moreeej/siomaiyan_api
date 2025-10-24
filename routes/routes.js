@@ -15,6 +15,7 @@ router.get("/getProductWithLimit", productController.getProductWithLimit)
 router.get("/getCarts", cartController.getCarts)
 router.post("/addToCart", cartController.addToCart)
 router.get("/fetchUserCart", cartController.fetchUserCart)
+router.delete("/checkoutItems", cartController.checkoutItems)
 
 router.get("/getRecipe", recipeController.getRecipe)
 
